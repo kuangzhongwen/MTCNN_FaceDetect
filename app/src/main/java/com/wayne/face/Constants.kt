@@ -17,5 +17,5 @@ package com.wayne.face
  */
 internal object Constants {
 
-    val DEBUG = BuildConfig.DEBUG
+    val LOG_DEBUG = BuildConfig.DEBUG
 }
