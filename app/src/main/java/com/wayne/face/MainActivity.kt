@@ -1,5 +1,6 @@
 package com.wayne.face
 
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 
@@ -10,10 +11,10 @@ import android.os.Bundle
  */
 class MainActivity : AppCompatActivity() {
 
+    private val mContext: Context? = FaceDetectApp.sAppContext
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-//        Log.i("kuang", AppUtils.getClassSimpleName(javaClass))
     }
 }
