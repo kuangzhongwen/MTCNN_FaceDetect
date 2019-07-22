@@ -12,9 +12,19 @@ import java.lang.Math.max
  * Box() {
  * }
  *
+ * 在 Kotlin 中一切都是默认 public 的.
+ * 四种修饰词 private,protected,internal,public，默认的修饰词是 public。
+ * 这些修饰词可以用在类，对象，接口，构造函数，属性以及属性的 set() 中.
+ *
+ * 包级别的使用修饰词：
+ * private fun test1(){}
+ * public var v=“任何地方都可以见”
+ * private var v2=“只有在本源文件中可见”
+ * internal val v3=“同一模块下可见”
+ *
  * @author kuang on 2019/07/19.
  */
-internal class Box internal constructor() {
+class Box internal constructor() {
 
     /**
      * left:box[0], top:box[1], right:box[2], bottom:box[3]
