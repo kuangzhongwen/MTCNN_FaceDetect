@@ -3,7 +3,6 @@ package com.wayne.face
 import android.app.Activity
 import android.app.ActivityManager
 import android.os.Handler
-import android.os.Looper
 import android.app.Fragment
 import android.content.Context
 import android.content.Intent
@@ -30,7 +29,7 @@ object AppUtils {
      * Kotlin 的空安全设计对于声明可为空的参数，在使用时要进行空判断处理，有两种处理方式，
      * 字段后加 !! 像Java一样抛出空异常，另一种字段后加 ? 可不做处理返回值为 null 或配合 ?: 做空判断处理
      */
-    var handler: Handler? = Handler(Looper.getMainLooper())
+    var handler: Handler? = Handler(getMainLooper())
 
     /**
      * 获取 Activity
@@ -330,10 +329,9 @@ object AppUtils {
         }
 
         if (delay > 0) {
-            // !! 如果为空则会抛出异常
-            handler!!.postDelayed(runnable, delay)
+            handler?.postDelayed(runnable, delay)
         } else {
-            handler!!.post(runnable)
+            handler?.post(runnable)
         }
     }
 
@@ -344,8 +342,7 @@ object AppUtils {
         if (handler == null) {
             handler = Handler()
         }
-        // !! 如果为空则会抛出异常
-        handler!!.postAtFrontOfQueue(runnable)
+        handler?.postAtFrontOfQueue(runnable)
     }
 
     /**

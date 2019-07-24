@@ -103,14 +103,14 @@ class MTCNN internal constructor(private val assetManager: AssetManager) {
         val PNetIn = normalizeImage(bitmap)
         Utils.flip_diag(PNetIn, h, w, 3)
         // 沿着对角线翻转
-        inferenceInterface!!.feed(PNetInName, PNetIn, 1, w, h, 3)
-        inferenceInterface!!.run(PNetOutName, false)
+        inferenceInterface?.feed(PNetInName, PNetIn, 1.toLong(), w.toLong(), h.toLong(), 3.toLong())
+        inferenceInterface?.run(PNetOutName, false)
         val PNetOutSizeW = Math.ceil(w * 0.5 - 5).toInt()
         val PNetOutSizeH = Math.ceil(h * 0.5 - 5).toInt()
         val PNetOutP = FloatArray(PNetOutSizeW * PNetOutSizeH * 2)
         val PNetOutB = FloatArray(PNetOutSizeW * PNetOutSizeH * 4)
-        inferenceInterface!!.fetch(PNetOutName[0], PNetOutP)
-        inferenceInterface!!.fetch(PNetOutName[1], PNetOutB)
+        inferenceInterface?.fetch(PNetOutName[0], PNetOutP)
+        inferenceInterface?.fetch(PNetOutName[1], PNetOutB)
         // 先翻转，后转为 2/3 维数组
         Utils.flip_diag(PNetOutP, PNetOutSizeW, PNetOutSizeH, 2)
         Utils.flip_diag(PNetOutB, PNetOutSizeW, PNetOutSizeH, 4)
@@ -275,13 +275,13 @@ class MTCNN internal constructor(private val assetManager: AssetManager) {
     private fun RNetForward(RNetIn: FloatArray, boxes: Vector<Box>) {
         val num = RNetIn.size / 24 / 24 / 3
         // feed & run
-        inferenceInterface!!.feed(RNetInName, RNetIn, num, 24, 24, 3)
-        inferenceInterface!!.run(RNetOutName, false)
+        inferenceInterface?.feed(RNetInName, RNetIn, num.toLong(), 24.toLong(), 24.toLong(), 3.toLong())
+        inferenceInterface?.run(RNetOutName, false)
         // fetch
         val RNetP = FloatArray(num * 2)
         val RNetB = FloatArray(num * 4)
-        inferenceInterface!!.fetch(RNetOutName[0], RNetP)
-        inferenceInterface!!.fetch(RNetOutName[1], RNetB)
+        inferenceInterface?.fetch(RNetOutName[0], RNetP)
+        inferenceInterface?.fetch(RNetOutName[1], RNetB)
         // 转换
         for (i in 0 until num) {
             boxes.get(i).score = RNetP[i * 2 + 1]
@@ -327,15 +327,15 @@ class MTCNN internal constructor(private val assetManager: AssetManager) {
     private fun ONetForward(ONetIn: FloatArray, boxes: Vector<Box>) {
         val num = ONetIn.size / 48 / 48 / 3
         //feed & run
-        inferenceInterface!!.feed(ONetInName, ONetIn, num, 48, 48, 3)
-        inferenceInterface!!.run(ONetOutName, false)
+        inferenceInterface?.feed(ONetInName, ONetIn, num.toLong(), 48.toLong(), 48.toLong(), 3.toLong())
+        inferenceInterface?.run(ONetOutName, false)
         //fetch
         val ONetP = FloatArray(num * 2) //prob
         val ONetB = FloatArray(num * 4) //bias
         val ONetL = FloatArray(num * 10) //landmark
-        inferenceInterface!!.fetch(ONetOutName[0], ONetP)
-        inferenceInterface!!.fetch(ONetOutName[1], ONetB)
-        inferenceInterface!!.fetch(ONetOutName[2], ONetL)
+        inferenceInterface?.fetch(ONetOutName[0], ONetP)
+        inferenceInterface?.fetch(ONetOutName[1], ONetB)
+        inferenceInterface?.fetch(ONetOutName[2], ONetL)
         // 转换
         for (i in 0 until num) {
             // prob
