@@ -110,30 +110,24 @@ class CameraFragment : Fragment(), TextureView.SurfaceTextureListener, Camera2Wr
         return false
     }
 
-    override fun onImageAvailable(bitmap: Bitmap?) {
+    override fun onImageAvailable(bitmap: Bitmap) {
         if (mtcnn != null) {
             Thread(Runnable {
                 Log.d(TAG, "begin detect faces")
-                // 对原图进行缩放再进行检测
-                val source = Bitmap.createScaledBitmap(
-                    bitmap, (bitmap?.getWidth() ?: 0 / DETECT_SCALE) as Int,
-                    (bitmap?.getHeight() ?: 0 / DETECT_SCALE) as Int, true
-                )
-                bitmap?.recycle()
                 val results: Vector<Box>?
                 // 同步 this || this@CameraFragment
                 synchronized(this@CameraFragment) {
-                    results = mtcnn?.detectFaces(source, 40)
+                    results = mtcnn?.detectFaces(bitmap, 40)
                 }
                 Log.d(TAG, "end detect faces")
                 if (results != null && results.size > 0) {
                     mHandler.postAtFrontOfQueue {
                         if (AppUtils.isSecureContextForUI(activity)) {
-                            mBoundingBoxView?.setResults(results, DETECT_SCALE)
+                            mBoundingBoxView?.setResults(results)
                         }
                     }
                 } else {
-                    source.recycle()
+                    bitmap.recycle()
                 }
             }).start()
         }
@@ -162,11 +156,6 @@ class CameraFragment : Fragment(), TextureView.SurfaceTextureListener, Camera2Wr
 
     companion object {
         private const val TAG = "CameraFragment"
-
-        /**
-         * 检测人脸时喂给检测器的图片缩放比例
-         */
-        private val DETECT_SCALE = 2.0f
 
         fun newInstance(): CameraFragment {
             return CameraFragment()

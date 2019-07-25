@@ -74,7 +74,7 @@ class BoundingBoxView(context: Context, attrs: AttributeSet) : SurfaceView(conte
      * }
      * ?. 与 !!. 都是 Kotlin 提供的检测空指针的方法
      */
-    fun setResults(detRets: Vector<Box>?, scale: Float) {
+    fun setResults(detRets: Vector<Box>?) {
         if (!mIsCreated) {
             return
         }
@@ -87,10 +87,6 @@ class BoundingBoxView(context: Context, attrs: AttributeSet) : SurfaceView(conte
             val size = detRets?.size ?: 0
             for (i in 0 until size) {
                 val rect = detRets?.get(i)?.transform2Rect()
-                rect?.left = (rect?.left ?: 0 * scale) as Int
-                rect?.right = (rect?.right ?: 0 * scale) as Int
-                rect?.top = (rect?.top ?: 0 * scale) as Int
-                rect?.bottom = (rect?.bottom ?: 0 * scale) as Int
                 canvas.drawRect(rect, mPaint)
             }
         } catch (e: Exception) {

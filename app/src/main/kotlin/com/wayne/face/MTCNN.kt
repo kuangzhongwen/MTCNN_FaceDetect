@@ -347,8 +347,8 @@ class MTCNN internal constructor(private val assetManager: AssetManager?) {
 
             // landmark
             for (j in 0..4) {
-                val x = boxes.get(i).left() + (ONetL[i * 10 + j] * boxes.get(i).width()) as Int
-                val y = boxes.get(i).top() + (ONetL[i * 10 + j + 5] * boxes.get(i).height()) as Int
+                val x = boxes.get(i).left() + (ONetL[i * 10 + j] * boxes.get(i).width()).toInt()
+                val y = boxes.get(i).top() + (ONetL[i * 10 + j + 5] * boxes.get(i).height()).toInt()
                 boxes.get(i).landmark[j] = Point(x, y)
                 // Log.i(TAG,"[*] landmarkd "+x+ "  "+y);
             }
