@@ -15,7 +15,7 @@ public class ImageUtils {
 
     static {
         try {
-            System.loadLibrary("faceSwapImageJni_lib");
+            System.loadLibrary("faceImageJni_lib");
         } catch (UnsatisfiedLinkError e) {
             Log.e(TAG, "Native library not found, native RGB -> YUV conversion may be unavailable.");
         }
