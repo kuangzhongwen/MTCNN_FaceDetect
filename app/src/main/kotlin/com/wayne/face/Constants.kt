@@ -1,5 +1,9 @@
 package com.wayne.face
 
+import java.io.File.separator
+import android.os.Environment.getExternalStorageDirectory
+
+
 /**
  * 常量类
  *
@@ -18,4 +22,16 @@ package com.wayne.face
 internal object Constants {
 
     val LOG_DEBUG = BuildConfig.DEBUG
+
+    const val FACE_SHAPE_MODEL_PATH = "shape_predictor_68_face_landmarks.dat"
+
+    /**
+     * getFaceShapeModelPath
+     *
+     * @return default face shape model path
+     */
+    fun getFaceShapeModelPath(): String {
+        val sdcard = getExternalStorageDirectory()
+        return sdcard.getAbsolutePath() + separator + FACE_SHAPE_MODEL_PATH
+    }
 }

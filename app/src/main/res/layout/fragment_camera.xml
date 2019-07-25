@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".CameraFragment">
+    <ImageView
+            android:id="@+id/camera_switch_View"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/ic_switch_camera"/>
+
+    <com.wayne.face.AutoFitTextureView
+            android:id="@+id/textureView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"/>
+
+    <com.wayne.face.BoundingBoxView
+            android:id="@+id/boundingBoxView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textureView"
+            android:layout_alignTop="@+id/textureView"
+            android:layout_alignRight="@+id/textureView"
+            android:layout_alignBottom="@+id/textureView"/>
+</RelativeLayout>

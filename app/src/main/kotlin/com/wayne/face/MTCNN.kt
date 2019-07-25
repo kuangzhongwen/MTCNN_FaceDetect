@@ -13,7 +13,7 @@ import java.util.*
  *
  * @author kuang on 2019/07/22.
  */
-class MTCNN internal constructor(private val assetManager: AssetManager) {
+class MTCNN internal constructor(private val assetManager: AssetManager?) {
 
     /**
      * 参数
